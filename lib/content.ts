@@ -290,14 +290,6 @@ export const portals = [
     features: ["Class roster", "Lesson planning", "Attendance & grading", "Student feedback"],
     accent: "var(--accent)",
   },
-  {
-    role: "Admin",
-    href: "/admin",
-    blurb:
-      "Applications, matching, semesters and reporting across every program.",
-    features: ["Applications & matching", "Semester setup", "Program analytics", "User management"],
-    accent: "var(--accent-iris)",
-  },
 ] as const;
 
 export const involvement = [

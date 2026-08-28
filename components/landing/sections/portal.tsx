@@ -10,9 +10,6 @@ const ICONS: Record<string, React.ReactNode> = {
   Teacher: (
     <path d="M3 5h18v11H3zM3 20h18M9 16v4M15 16v4M7.5 10.5l2.5 2 4-4.5" />
   ),
-  Admin: (
-    <path d="M12 2.5 4 6v6c0 4.6 3.3 8.4 8 9.5 4.7-1.1 8-4.9 8-9.5V6l-8-3.5ZM9.2 12.2l2 2 3.6-4" />
-  ),
 };
 
 export function Portal() {
@@ -34,15 +31,15 @@ export function Portal() {
             <>
               One portal.{" "}
               <span className="font-serif italic font-normal text-gradient-dawn">
-                Three
+                Two
               </span>{" "}
               ways in.
             </>
           }
-          body="Students, teachers and administrators each get a workspace built around what they actually do — sharing one source of truth underneath."
+          body="Students and teachers each get a workspace built around what they actually do — sharing one source of truth underneath."
         />
 
-        <div className="mt-16 grid gap-5 lg:grid-cols-3">
+        <div className="mx-auto mt-16 grid max-w-4xl gap-5 sm:grid-cols-2">
           {portals.map((portal, i) => (
             <Reveal key={portal.role} delay={i * 110} className="h-full">
               <SpotlightCard accent={portal.accent} className="h-full">
