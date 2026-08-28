@@ -276,7 +276,7 @@ export const spotlights = [
 export const portals = [
   {
     role: "Student",
-    href: "/student",
+    href: "https://paper-airplanes-program-student.vercel.app/",
     blurb:
       "Your classes, your tutor, your homework and your certificates — in one place.",
     features: ["Session schedule", "Course materials", "Progress & attendance", "Certificates"],
@@ -284,7 +284,7 @@ export const portals = [
   },
   {
     role: "Teacher",
-    href: "/teacher",
+    href: "https://paper-airplanes-program-teacher.vercel.app/",
     blurb:
       "Run your cohort: lesson plans, attendance, feedback and student progress.",
     features: ["Class roster", "Lesson planning", "Attendance & grading", "Student feedback"],
