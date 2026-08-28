@@ -1,0 +1,689 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Paper Airplanes — Design System
+   Theme: "Dawn Flight".
+     dark  — a night sky, flight trails lit from below
+     light — the same sky at daybreak, pale blue into a warm horizon
+   ============================================================ */
+
+/* ---------- Raw palette (fixed hues, identical in both themes) ---------- */
+@theme {
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+
+  /* Ink — the night sky */
+  --color-ink-950: #04050d;
+  --color-ink-900: #070a18;
+  --color-ink-850: #0a0e22;
+  --color-ink-800: #0e1330;
+  --color-ink-700: #161c42;
+  --color-ink-600: #232a5c;
+  --color-ink-500: #38407e;
+
+  /* Aurora — the flight trail */
+  --color-aurora-200: #c7ecff;
+  --color-aurora-300: #8fd8ff;
+  --color-aurora-400: #4cc2ff;
+  --color-aurora-500: #2e9bff;
+  --color-aurora-600: #1b6fe0;
+  --color-aurora-700: #1257b4;
+
+  /* Iris — depth and dusk */
+  --color-iris-300: #cbbcff;
+  --color-iris-400: #a78bfa;
+  --color-iris-500: #7c5cff;
+  --color-iris-600: #6039e8;
+  --color-iris-700: #4c25c4;
+
+  /* Dawn — the warm horizon */
+  --color-dawn-200: #ffeacd;
+  --color-dawn-300: #ffd9a8;
+  --color-dawn-400: #ffb067;
+  --color-dawn-500: #ff8a4c;
+  --color-dawn-600: #f26a2e;
+  --color-dawn-700: #c2521a;
+
+  /* Mint — growth */
+  --color-mint-300: #a7f3e4;
+  --color-mint-400: #5eead4;
+  --color-mint-500: #2dd4bf;
+  --color-mint-700: #0d7d6e;
+
+  /* Chart categorical ramp — validated in BOTH modes for lightness band,
+     chroma, CVD separation and contrast. Do not substitute the display
+     hues above: they fail the dark-mode lightness band. */
+  --color-chart-1: #dd7028;
+  --color-chart-2: #2189e0;
+  --color-chart-3: #dc4fa3;
+
+  /* Motion */
+  --animate-aurora: aurora 24s ease-in-out infinite;
+  --animate-aurora-slow: aurora 36s ease-in-out infinite reverse;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 11s ease-in-out infinite;
+  --animate-drift: drift 3.5s ease-in-out infinite;
+  --animate-marquee: marquee 46s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 46s linear infinite;
+  --animate-trail: trail 3s linear infinite;
+  --animate-twinkle: twinkle 4s ease-in-out infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
+  --animate-pulse-ring: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- Semantic tokens: these are what components use ----------
+   `inline` makes Tailwind emit `var(--fg)` straight into the utility, so
+   flipping the theme re-paints without regenerating any classes. */
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-faint: var(--fg-faint);
+  /* Sits on top of the warm gradient button — dark in both themes. */
+  --color-on-accent: var(--on-accent);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-tint: var(--tint);
+  --color-tint-2: var(--tint-2);
+
+  --color-accent: var(--accent);
+  --color-accent-cool: var(--accent-cool);
+  --color-accent-iris: var(--accent-iris);
+  --color-accent-mint: var(--accent-mint);
+}
+
+/* ---------- Light (default) ---------- */
+:root {
+  color-scheme: light;
+
+  --surface: #f7f8fc;
+  --surface-2: #edf0f8;
+  --card: #ffffff;
+  --card-hover: #ffffff;
+
+  --fg: #0b1020;
+  --fg-muted: #4a5270;
+  --fg-subtle: #666e8c;
+  --fg-faint: #858ca6;
+  --on-accent: #1a1206;
+
+  --line: rgb(11 16 32 / 0.1);
+  --line-strong: rgb(11 16 32 / 0.2);
+  --tint: rgb(11 16 32 / 0.04);
+  --tint-2: rgb(11 16 32 / 0.07);
+
+  --accent: #c2521a;
+  --accent-cool: #1257b4;
+  --accent-iris: #4c25c4;
+  --accent-mint: #0d7d6e;
+
+  /* Surfaces & effects */
+  --glass-bg: linear-gradient(
+    150deg,
+    rgb(255 255 255 / 0.88) 0%,
+    rgb(255 255 255 / 0.62) 55%,
+    rgb(255 255 255 / 0.8) 100%
+  );
+  --glass-border: rgb(11 16 32 / 0.09);
+  --glass-shadow: 0 1px 2px rgb(11 16 32 / 0.04), 0 12px 32px -16px rgb(11 16 32 / 0.16);
+  --grid-line: rgb(11 16 32 / 0.07);
+  --grain-opacity: 0.02;
+  --aurora-strength: 0.36;
+  --star-opacity: 0;
+  --chart-surface: #ffffff;
+  --scroll-thumb: #b9c0d6;
+
+  /* Flight trails need deeper strokes to read on a pale sky. */
+  --trail-1: #f26a2e;
+  --trail-2: #1b6fe0;
+  --trail-3: #6039e8;
+
+  /* Logo mark */
+  --mark-a: #f2913c;
+  --mark-b: #e2622a;
+  --mark-c: #5b34d6;
+  --mark-fold-a: #1257b4;
+  --mark-fold-b: #4cc2ff;
+
+  /* Soft glow behind a section heading */
+  --section-glow: #dbe4f6;
+}
+
+/* ---------- Dark ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --surface: #04050d;
+    --surface-2: #070a18;
+    --card: rgb(7 10 24 / 0.55);
+    --card-hover: rgb(10 14 34 / 0.75);
+
+    --fg: #ffffff;
+    --fg-muted: #a9bdd4;
+    --fg-subtle: #8194ad;
+    --fg-faint: #6b7c94;
+    --on-accent: #04050d;
+
+    --line: rgb(255 255 255 / 0.09);
+    --line-strong: rgb(255 255 255 / 0.2);
+    --tint: rgb(255 255 255 / 0.06);
+    --tint-2: rgb(255 255 255 / 0.11);
+
+    --accent: #ffd9a8;
+    --accent-cool: #8fd8ff;
+    --accent-iris: #cbbcff;
+    --accent-mint: #a7f3e4;
+
+    --glass-bg: linear-gradient(
+      150deg,
+      rgb(255 255 255 / 0.07) 0%,
+      rgb(255 255 255 / 0.02) 55%,
+      rgb(255 255 255 / 0.045) 100%
+    );
+    --glass-border: rgb(255 255 255 / 0.09);
+    --glass-shadow: none;
+    --grid-line: rgb(56 64 126 / 0.32);
+    --grain-opacity: 0.045;
+    --aurora-strength: 1;
+    --star-opacity: 1;
+    --chart-surface: #0a0e22;
+    --scroll-thumb: linear-gradient(var(--color-iris-600), var(--color-aurora-600));
+    --trail-1: #ffb067;
+    --trail-2: #4cc2ff;
+    --trail-3: #a78bfa;
+    --mark-a: #ffd9a8;
+    --mark-b: #ff8a4c;
+    --mark-c: #7c5cff;
+    --mark-fold-a: #2e9bff;
+    --mark-fold-b: #c7ecff;
+    --section-glow: #0e1330;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --surface: #04050d;
+  --surface-2: #070a18;
+  --card: rgb(7 10 24 / 0.55);
+  --card-hover: rgb(10 14 34 / 0.75);
+
+  --fg: #ffffff;
+  --fg-muted: #a9bdd4;
+  --fg-subtle: #8194ad;
+  --fg-faint: #6b7c94;
+  --on-accent: #04050d;
+
+  --line: rgb(255 255 255 / 0.09);
+  --line-strong: rgb(255 255 255 / 0.2);
+  --tint: rgb(255 255 255 / 0.06);
+  --tint-2: rgb(255 255 255 / 0.11);
+
+  --accent: #ffd9a8;
+  --accent-cool: #8fd8ff;
+  --accent-iris: #cbbcff;
+  --accent-mint: #a7f3e4;
+
+  --glass-bg: linear-gradient(
+    150deg,
+    rgb(255 255 255 / 0.07) 0%,
+    rgb(255 255 255 / 0.02) 55%,
+    rgb(255 255 255 / 0.045) 100%
+  );
+  --glass-border: rgb(255 255 255 / 0.09);
+  --glass-shadow: none;
+  --grid-line: rgb(56 64 126 / 0.32);
+  --grain-opacity: 0.045;
+  --aurora-strength: 1;
+  --star-opacity: 1;
+  --chart-surface: #0a0e22;
+  --scroll-thumb: linear-gradient(var(--color-iris-600), var(--color-aurora-600));
+  --trail-1: #ffb067;
+  --trail-2: #4cc2ff;
+  --trail-3: #a78bfa;
+  --mark-a: #ffd9a8;
+  --mark-b: #ff8a4c;
+  --mark-c: #7c5cff;
+  --mark-fold-a: #2e9bff;
+  --mark-fold-b: #c7ecff;
+  --section-glow: #0e1330;
+}
+
+/* ------------------------------------------------------------
+   Keyframes
+   ------------------------------------------------------------ */
+
+@keyframes aurora {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: calc(0.55 * var(--aurora-strength));
+  }
+  33% {
+    transform: translate3d(6%, -4%, 0) scale(1.15);
+    opacity: calc(0.75 * var(--aurora-strength));
+  }
+  66% {
+    transform: translate3d(-5%, 5%, 0) scale(0.92);
+    opacity: calc(0.45 * var(--aurora-strength));
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1.5deg);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes trail {
+  to {
+    stroke-dashoffset: -240;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  80%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------
+   Base
+   ------------------------------------------------------------ */
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--surface);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-dawn-500) 55%, transparent);
+    color: var(--fg);
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--surface);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: 99px;
+    border: 3px solid var(--surface);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-aurora-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------ */
+
+/* Headline gradient. Light mode uses deeper stops so the text keeps its
+   contrast against a pale background. */
+@utility text-gradient {
+  background-image: linear-gradient(
+    120deg,
+    var(--grad-a) 0%,
+    var(--grad-b) 24%,
+    var(--grad-c) 50%,
+    var(--grad-d) 78%,
+    var(--grad-e) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility text-gradient-dawn {
+  background-image: linear-gradient(
+    100deg,
+    var(--grad-warm-a),
+    var(--grad-warm-b) 55%,
+    var(--grad-warm-c)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+@layer utilities {
+  :root {
+    --grad-a: #b4541c;
+    --grad-b: #e0762c;
+    --grad-c: #0b1020;
+    --grad-d: #1a6fc4;
+    --grad-e: #5b34d6;
+
+    --grad-warm-a: #c2521a;
+    --grad-warm-b: #e0762c;
+    --grad-warm-c: #5b34d6;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --grad-a: #ffd9a8;
+      --grad-b: #ffb067;
+      --grad-c: #ffffff;
+      --grad-d: #8fd8ff;
+      --grad-e: #cbbcff;
+
+      --grad-warm-a: #ffd9a8;
+      --grad-warm-b: #ff8a4c;
+      --grad-warm-c: #a78bfa;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --grad-a: #ffd9a8;
+    --grad-b: #ffb067;
+    --grad-c: #ffffff;
+    --grad-d: #8fd8ff;
+    --grad-e: #cbbcff;
+
+    --grad-warm-a: #ffd9a8;
+    --grad-warm-b: #ff8a4c;
+    --grad-warm-c: #a78bfa;
+  }
+
+  /* Fine film grain — keeps the large gradients from banding */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Hairline gradient border, masked so the card fill stays free */
+  .ring-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      color-mix(in oklab, var(--color-dawn-500) 60%, transparent),
+      transparent 38%,
+      transparent 62%,
+      color-mix(in oklab, var(--color-aurora-500) 60%, transparent)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Blueprint grid, faded toward the edges */
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 68px 68px;
+    mask-image: radial-gradient(
+      ellipse 90% 65% at 50% 40%,
+      #000 20%,
+      transparent 78%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 90% 65% at 50% 40%,
+      #000 20%,
+      transparent 78%
+    );
+  }
+
+  .dot-bg {
+    background-image: radial-gradient(var(--grid-line) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 50%,
+      #000 10%,
+      transparent 75%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 70% 60% at 50% 50%,
+      #000 10%,
+      transparent 75%
+    );
+  }
+
+  /* Edge fade for marquees */
+  .fade-x {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 9%,
+      #000 91%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 9%,
+      #000 91%,
+      transparent
+    );
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  /* Stars only make sense after dark. */
+  .starfield {
+    opacity: var(--star-opacity);
+  }
+
+  /* Scroll reveal — driven by components/ui/reveal.tsx */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    filter: blur(6px);
+    transition:
+      opacity 0.9s var(--ease-out-expo),
+      transform 0.9s var(--ease-out-expo),
+      filter 0.9s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+
+  /* Card that lights up under the cursor */
+  .spotlight {
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    background: radial-gradient(
+      320px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in oklab, var(--spot, var(--color-aurora-400)) 18%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+
+  .glow-dawn {
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.06),
+      0 18px 50px -12px
+        color-mix(in oklab, var(--color-dawn-500) 55%, transparent);
+  }
+
+  /* A panel that stays dark in both themes — the closing CTA. */
+  .always-dark {
+    --fg: #ffffff;
+    --fg-muted: #a9bdd4;
+    --fg-subtle: #8194ad;
+    --fg-faint: #6b7c94;
+    --line: rgb(255 255 255 / 0.09);
+    --line-strong: rgb(255 255 255 / 0.2);
+    --tint: rgb(255 255 255 / 0.06);
+    --tint-2: rgb(255 255 255 / 0.11);
+    --accent: #ffd9a8;
+    --accent-cool: #8fd8ff;
+    --on-accent: #04050d;
+    --grad-a: #ffd9a8;
+    --grad-b: #ffb067;
+    --grad-c: #ffffff;
+    --grad-d: #8fd8ff;
+    --grad-e: #cbbcff;
+    --glass-bg: linear-gradient(
+      150deg,
+      rgb(255 255 255 / 0.09) 0%,
+      rgb(255 255 255 / 0.03) 55%,
+      rgb(255 255 255 / 0.06) 100%
+    );
+    --glass-border: rgb(255 255 255 / 0.12);
+    --glass-shadow: none;
+    --grid-line: rgb(56 64 126 / 0.32);    --trail-1: #ffb067;
+    --trail-2: #4cc2ff;
+    --trail-3: #a78bfa;
+    --mark-a: #ffd9a8;
+    --mark-b: #ff8a4c;
+    --mark-c: #7c5cff;
+    --mark-fold-a: #2e9bff;
+    --mark-fold-b: #c7ecff;
+    --section-glow: #0e1330;
+
+    --aurora-strength: 1;
+    --star-opacity: 1;
+    --grain-opacity: 0.045;
+    color: var(--fg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
