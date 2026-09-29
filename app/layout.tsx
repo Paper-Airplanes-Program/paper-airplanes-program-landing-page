@@ -61,20 +61,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      // themeScript sets data-theme before React hydrates.
       suppressHydrationWarning
       className={`${jakarta.variable} ${instrument.variable} h-full antialiased`}
     >
       <head>
-        {/* Must live inside <head>: a bare <script> between <html> and <body>
-            is invalid HTML, so the browser reparents it and the DOM no longer
-            matches the tree React rendered. */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-full flex-col">
-        {/* Scroll reveals start at opacity 0 and are switched on by an
-            IntersectionObserver. Without JS that observer never runs, so
-            un-hide everything up front. */}
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important}`}</style>
         </noscript>

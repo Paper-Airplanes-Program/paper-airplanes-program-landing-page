@@ -4,8 +4,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { ArrowRight, Check } from "@/components/ui/marks";
 
-/** `color` drives the cursor glow and the tick marks, and flips with the
- *  theme so it stays legible on a pale surface as well as a dark one. */
 const ACCENTS = {
   aurora: {
     color: "var(--accent-cool)",
@@ -33,10 +31,6 @@ const ACCENTS = {
   },
 } as const;
 
-/**
- * A 7/5 bento. The wide slot goes to the two programs with the most to say;
- * the narrow slot drops its bullets to a single column so nothing cramps.
- */
 const LAYOUT = [
   { span: "lg:col-span-7", bullets: "sm:grid-cols-2" },
   { span: "lg:col-span-5", bullets: "sm:grid-cols-2" },

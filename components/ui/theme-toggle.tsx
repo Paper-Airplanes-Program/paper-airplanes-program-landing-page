@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { THEME_EVENT, THEME_KEY, type Theme } from "./theme";
 
 function apply(theme: Theme) {
@@ -16,16 +16,7 @@ function apply(theme: Theme) {
   window.dispatchEvent(new Event(THEME_EVENT));
 }
 
-function subscribe(onChange: () => void) {
-  window.addEventListener("storage", onChange);
-  window.addEventListener(THEME_EVENT, onChange);
-  return () => {
-    window.removeEventListener("storage", onChange);
-    window.removeEventListener(THEME_EVENT, onChange);
-  };
-}
-
-function getSnapshot(): Theme {
+function readTheme(): Theme {
   try {
     const stored = localStorage.getItem(THEME_KEY);
     return stored === "light" || stored === "dark" ? stored : "system";
@@ -34,8 +25,22 @@ function getSnapshot(): Theme {
   }
 }
 
-function getServerSnapshot(): Theme {
-  return "system";
+function useTheme(): Theme {
+  const [theme, setTheme] = useState<Theme>("system");
+
+  useEffect(() => {
+    const update = () => setTheme(readTheme());
+    update();
+
+    window.addEventListener("storage", update);
+    window.addEventListener(THEME_EVENT, update);
+    return () => {
+      window.removeEventListener("storage", update);
+      window.removeEventListener(THEME_EVENT, update);
+    };
+  }, []);
+
+  return theme;
 }
 
 const OPTIONS: { value: Theme; label: string; icon: React.ReactNode }[] = [
@@ -67,7 +72,7 @@ const OPTIONS: { value: Theme; label: string; icon: React.ReactNode }[] = [
 ];
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
-  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const theme = useTheme();
 
   return (
     <div

@@ -3,7 +3,6 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ArrowRight } from "@/components/ui/marks";
 
-/** Split into two rows that scroll in opposite directions. */
 const rowA = partners.slice(0, Math.ceil(partners.length / 2));
 const rowB = partners.slice(Math.ceil(partners.length / 2));
 

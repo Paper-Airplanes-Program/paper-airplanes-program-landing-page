@@ -17,7 +17,6 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // The drawer covers the page, so stop the page behind it from scrolling.
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -53,7 +52,6 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden items-center gap-1 lg:flex">
           {nav.map((item) =>
             "children" in item && item.children ? (
@@ -145,7 +143,6 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Mobile drawer */}
       <div
         className={`fixed inset-x-0 top-18 bottom-0 z-40 overflow-y-auto bg-surface/95 backdrop-blur-2xl transition-all duration-400 ease-[var(--ease-out-expo)] lg:hidden ${
           open

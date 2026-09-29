@@ -26,7 +26,6 @@ export function Impact() {
         />
 
         <div className="mt-16 grid gap-5 lg:grid-cols-12">
-          {/* Proportion bar — who our students are */}
           <Reveal className="lg:col-span-7">
             <figure className="glass ring-gradient relative flex h-full flex-col overflow-hidden rounded-3xl p-7 sm:p-9">
               <figcaption>
@@ -38,7 +37,6 @@ export function Impact() {
                 </p>
               </figcaption>
 
-              {/* The bar. 24px thick, 2px surface gaps, 4px rounded outer ends. */}
               <div
                 className="mt-8 flex h-6 w-full gap-0.5"
                 role="img"
@@ -55,7 +53,6 @@ export function Impact() {
                       background: slice.color,
                     }}
                   >
-                    {/* Hover tooltip */}
                     <span className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2.5 -translate-x-1/2 scale-95 rounded-lg border border-line bg-surface/95 px-2.5 py-1.5 text-[11.5px] whitespace-nowrap text-fg opacity-0 shadow-xl backdrop-blur transition-all duration-200 group-hover:scale-100 group-hover:opacity-100">
                       <span className="font-bold">{slice.value}%</span>{" "}
                       <span className="text-fg-subtle">{slice.label}</span>
@@ -64,7 +61,6 @@ export function Impact() {
                 ))}
               </div>
 
-              {/* Legend — the dependable identity channel */}
               <ul className="mt-7 grid gap-3.5 sm:grid-cols-3">
                 {displacement.map((slice) => (
                   <li key={slice.label} className="flex items-start gap-2.5">
@@ -135,7 +131,6 @@ export function Impact() {
             </figure>
           </Reveal>
 
-          {/* Funnel — one measure, two stages, one hue */}
           <Reveal delay={120} className="lg:col-span-5">
             <figure className="glass ring-gradient relative h-full overflow-hidden rounded-3xl p-7 sm:p-9">
               <figcaption>
@@ -190,7 +185,6 @@ export function Impact() {
           </Reveal>
         </div>
 
-        {/* KPI tiles */}
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {impactFigures.map((figure, i) => (
             <Reveal key={figure.label} delay={i * 80}>

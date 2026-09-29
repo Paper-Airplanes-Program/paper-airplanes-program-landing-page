@@ -30,7 +30,6 @@ export function SiteFooter() {
 
       <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-12">
-          {/* Brand */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-2.5">
               <PlaneMark className="h-8 w-8" />
@@ -68,7 +67,6 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {/* Link columns */}
           <div className="grid gap-8 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4">
             {footerLinks.map((column) => (
               <div key={column.title}>

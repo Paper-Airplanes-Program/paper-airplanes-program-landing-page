@@ -32,7 +32,6 @@ export function Voices() {
           body="Students and tutors describe the same thing from two directions — a real relationship, held together across borders by a weekly 90 minutes."
         />
 
-        {/* Tabs */}
         <Reveal delay={140}>
           <div className="mt-12 flex justify-center">
             <div
@@ -63,7 +62,6 @@ export function Voices() {
           </div>
         </Reveal>
 
-        {/* Quote grid — keyed on the tab so cards re-run their entrance */}
         <div key={tab} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {quotes.map((item, i) => (
             <Reveal key={item.name} delay={i * 90} className="h-full">
@@ -99,7 +97,6 @@ export function Voices() {
           ))}
         </div>
 
-        {/* Where they landed */}
         <Reveal delay={120}>
           <div className="mt-20">
             <h3 className="text-center text-[11px] font-bold tracking-[0.24em] text-accent-cool uppercase">
@@ -142,7 +139,6 @@ export function Voices() {
             </Reveal>
           ))}
 
-          {/* Fills the last cell of the grid, and asks for the next story. */}
           <Reveal delay={spotlights.length * 80} className="h-full">
             <a
               href="#involved"

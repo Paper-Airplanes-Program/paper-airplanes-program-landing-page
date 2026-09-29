@@ -23,7 +23,6 @@ export function Mission() {
           body={`In 2013, ${org.founder} volunteered in Reyhanlı, Turkey, near the Syrian border, and met college students trying to finish degrees the war had interrupted. She started giving English conversation practice over Skype. Demand outgrew one person — so ten tutors were recruited, and in June 2014 the English Program launched.`}
         />
 
-        {/* Mission / Vision */}
         <div className="mt-16 grid gap-5 lg:grid-cols-2">
           {[
             {
@@ -58,7 +57,6 @@ export function Mission() {
           ))}
         </div>
 
-        {/* Timeline */}
         <div className="relative mt-24">
           <Reveal>
             <h3 className="text-center text-[11px] font-bold tracking-[0.24em] text-accent-cool uppercase">
@@ -67,7 +65,6 @@ export function Mission() {
           </Reveal>
 
           <div className="relative mt-12">
-            {/* The flight line the milestones hang from */}
             <div
               aria-hidden
               className="absolute top-[7px] left-[7px] h-[calc(100%-14px)] w-px bg-gradient-to-b from-dawn-400/70 via-aurora-400/40 to-transparent lg:top-[7px] lg:left-0 lg:h-px lg:w-full lg:bg-gradient-to-r"
@@ -100,7 +97,6 @@ export function Mission() {
           </div>
         </div>
 
-        {/* Founding quote */}
         <Reveal delay={120}>
           <figure className="glass ring-gradient relative mx-auto mt-20 max-w-4xl overflow-hidden rounded-3xl px-8 py-12 text-center sm:px-14">
             <PlaneGlyph className="mx-auto h-7 w-7 animate-float text-dawn-400/80" />
