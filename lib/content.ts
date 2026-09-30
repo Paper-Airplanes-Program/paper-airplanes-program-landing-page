@@ -278,8 +278,8 @@ export const portals = [
     role: "Student",
     href: "https://paper-airplanes-program-student.vercel.app/",
     blurb:
-      "Your classes, your tutor, your homework and your certificates — in one place.",
-    features: ["Session schedule", "Course materials", "Progress & attendance", "Certificates"],
+      "Your classes, your tutor and your homework — in one place.",
+    features: ["Session schedule", "Course materials", "Progress & attendance", "Vocabulary cards"],
     accent: "var(--accent-cool)",
   },
   {
